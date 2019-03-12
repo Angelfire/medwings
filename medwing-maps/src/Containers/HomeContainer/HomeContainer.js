@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Home from "../../components/Home/Home";
+import axios from "axios";
 
 class HomeContainer extends Component {
   constructor(props) {
@@ -9,10 +10,10 @@ class HomeContainer extends Component {
     };
   }
 
-  getMarkers = () => {
-    fetch("http://localhost:3001/api/v1/markers/")
-      .then(response => response.json())
-      .then(markers => this.setState({ markers: markers.data }));
+  getMarkers = async () => {
+    let response = await axios.get("http://localhost:3001/api/v1/markers/");
+    let { data } = await response.data;
+    this.setState({ markers: data });
   };
 
   componentDidMount() {

@@ -13,7 +13,6 @@ class CreateMarker extends Component {
       lng: "",
       title: ""
     };
-    this.formSubmitHandler = this.formSubmitHandler.bind(this);
   }
 
   showModal = () => {
@@ -31,7 +30,7 @@ class CreateMarker extends Component {
     this.setState({ [name]: value });
   };
 
-  async formSubmitHandler() {
+  formSubmitHandler = async () => {
     const { title, lat, lng } = this.state;
 
     try {
@@ -40,19 +39,23 @@ class CreateMarker extends Component {
         lat,
         lng
       });
+
       window.eventManager.emit("update");
+
       this.setState({ openModal: false });
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   render() {
     const { openModal } = this.state;
 
     return (
       <Fragment>
-        <button onClick={this.showModal}>Create Marker</button>
+        <button className="contentmodal-button" onClick={this.showModal}>
+          Create Marker
+        </button>
         <Modal show={openModal} handleClose={this.hideModal}>
           <form className="contentmodal-form">
             <h2 className="contentmodal-title">Create New Marker</h2>

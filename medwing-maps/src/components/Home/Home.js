@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import MapContainer from "../MapContainer/MapContainer";
+import MedwingMap from "../MedwingMap/MedwingMap";
 import ShowMarkers from "../ShowMarkers/ShowMarkers";
 import CreateMarker from "../CreateMarker/CreateMarker";
 
@@ -11,7 +11,7 @@ class Home extends Component {
 
     return (
       <div className="home">
-        <div>Aca va a el mapa</div>
+        <MedwingMap />
         <div className="full-markers">
           <CreateMarker />
           <ShowMarkers data={markers} />
