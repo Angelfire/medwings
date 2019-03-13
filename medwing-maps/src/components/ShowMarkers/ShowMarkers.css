@@ -1,6 +1,30 @@
 .markers {
+  border-top: 1px solid #ccc;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  padding: 15px;
+  margin: 15px;
+}
+
+.marker {
+  flex-basis: 25%;
+  margin-bottom: 1em;
+}
+
+.marker h1 {
+  color: #0366d6;
+  font-size: 16px;
+}
+
+.marker p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.marker-button {
+  background-color: #fff;
+  color: #666;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: .3em;
 }

@@ -49,7 +49,9 @@ class CreateMarker extends Component {
   };
 
   render() {
-    const { openModal } = this.state;
+    const { openModal, title, lat, lng } = this.state;
+    const isEnabled =
+      title !== "" && lat !== "" && lng !== "" ? "enabled" : "disabled";
 
     return (
       <Fragment>
@@ -57,44 +59,50 @@ class CreateMarker extends Component {
           Create Marker
         </button>
         <Modal show={openModal} handleClose={this.hideModal}>
-          <form className="contentmodal-form">
-            <h2 className="contentmodal-title">Create New Marker</h2>
-            <div className="contentmodal-field">
-              <label className="contentmodal-label">Title</label>
+          <div className="contentmodal">
+            <form className="contentmodal-form">
+              <h2 className="contentmodal-title">Create New Marker</h2>
+              <div className="contentmodal-field">
+                <label className="contentmodal-label">Title</label>
+                <input
+                  className="contentmodal-input"
+                  type="text"
+                  name="title"
+                  placeholder="Marker Title"
+                  onChange={this.changeHandler}
+                  required
+                />
+              </div>
+              <div className="contentmodal-field">
+                <label className="contentmodal-label">Latitude</label>
+                <input
+                  className="contentmodal-input"
+                  type="text"
+                  name="lat"
+                  placeholder="Latitude Title"
+                  onChange={this.changeHandler}
+                  required
+                />
+              </div>
+              <div className="contentmodal-field">
+                <label className="contentmodal-label">Longitude</label>
+                <input
+                  className="contentmodal-input"
+                  type="text"
+                  name="lng"
+                  placeholder="Longitude Title"
+                  onChange={this.changeHandler}
+                  required
+                />
+              </div>
               <input
-                className="contentmodal-input"
-                type="text"
-                name="title"
-                placeholder="Marker Title"
-                onChange={this.changeHandler}
+                className={`contentmodal-button ${isEnabled}`}
+                type="button"
+                value="Create Marker"
+                onClick={this.formSubmitHandler}
               />
-            </div>
-            <div className="contentmodal-field">
-              <label className="contentmodal-label">Latitude</label>
-              <input
-                className="contentmodal-input"
-                type="text"
-                name="lat"
-                placeholder="Latitude Title"
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div className="contentmodal-field">
-              <label className="contentmodal-label">Longitude</label>
-              <input
-                className="contentmodal-input"
-                type="text"
-                name="lng"
-                placeholder="Longitude Title"
-                onChange={this.changeHandler}
-              />
-            </div>
-            <input
-              type="button"
-              value="Create Marker"
-              onClick={this.formSubmitHandler}
-            />
-          </form>
+            </form>
+          </div>
         </Modal>
       </Fragment>
     );

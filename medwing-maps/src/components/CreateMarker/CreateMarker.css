@@ -1,7 +1,40 @@
+.contentmodal {
+  display: flex;
+  justify-content: center;
+}
+
+.contentmodal-title {
+  color: #0366d6;
+}
+
+.contentmodal-field {
+  margin-bottom: 12px;
+}
+
 .contentmodal-label {
-  display: block
+  display: block;
+  font-size: 14px;
 }
 
 .contentmodal-input {
-  margin-left: 20px;
+  border-radius: .3em;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.contentmodal-button {
+  background-color: #0366d6;
+  border: 1px solid transparent;
+  border-color: #0366d6;
+  border-radius: .3em;
+  color: #fff;
+  margin: 15px 0 0 15px;
+  padding: 5px;
+}
+
+.contentmodal-button.disabled {
+  background-color: #ccc;
+  border: 1px solid #999;
+  color: #999;
+  pointer-events: none;
 }
