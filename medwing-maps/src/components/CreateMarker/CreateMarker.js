@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
 import Modal from "../Modal/Modal";
+import InputField from "./InputField";
+import germanCoordinates from "../../utils/address-utils";
 
 import "./CreateMarker.css";
 
@@ -24,8 +26,7 @@ class CreateMarker extends Component {
   };
 
   changeHandler = evt => {
-    const name = evt.target.name;
-    const value = evt.target.value;
+    const { name, value } = evt.target;
 
     this.setState({ [name]: value });
   };
@@ -33,18 +34,24 @@ class CreateMarker extends Component {
   formSubmitHandler = async () => {
     const { title, lat, lng } = this.state;
 
-    try {
-      await axios.post("http://localhost:3001/api/v1/markers/", {
-        title,
-        lat,
-        lng
-      });
+    const validCoordinates = await germanCoordinates(lat, lng);
 
-      window.eventManager.emit("update");
+    if (validCoordinates) {
+      try {
+        await axios.post("http://localhost:3001/api/v1/markers/", {
+          title,
+          lat,
+          lng
+        });
 
-      this.setState({ openModal: false });
-    } catch (err) {
-      console.log(err);
+        window.eventManager.emit("update");
+
+        this.setState({ openModal: false });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      alert("Coordinates are not valid within Germany");
     }
   };
 
@@ -62,39 +69,21 @@ class CreateMarker extends Component {
           <div className="contentmodal">
             <form className="contentmodal-form">
               <h2 className="contentmodal-title">Create New Marker</h2>
-              <div className="contentmodal-field">
-                <label className="contentmodal-label">Title</label>
-                <input
-                  className="contentmodal-input"
-                  type="text"
-                  name="title"
-                  placeholder="Marker Title"
-                  onChange={this.changeHandler}
-                  required
-                />
-              </div>
-              <div className="contentmodal-field">
-                <label className="contentmodal-label">Latitude</label>
-                <input
-                  className="contentmodal-input"
-                  type="text"
-                  name="lat"
-                  placeholder="Latitude Title"
-                  onChange={this.changeHandler}
-                  required
-                />
-              </div>
-              <div className="contentmodal-field">
-                <label className="contentmodal-label">Longitude</label>
-                <input
-                  className="contentmodal-input"
-                  type="text"
-                  name="lng"
-                  placeholder="Longitude Title"
-                  onChange={this.changeHandler}
-                  required
-                />
-              </div>
+              <InputField
+                name="title"
+                placeholder="Title"
+                onChange={this.changeHandler}
+              />
+              <InputField
+                name="lat"
+                placeholder="Latitude"
+                onChange={this.changeHandler}
+              />
+              <InputField
+                name="lng"
+                placeholder="Longitude"
+                onChange={this.changeHandler}
+              />
               <input
                 className={`contentmodal-button ${isEnabled}`}
                 type="button"

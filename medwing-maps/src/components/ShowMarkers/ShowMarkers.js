@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import "./ShowMarkers.css";
 
@@ -32,6 +33,12 @@ const Markers = ({ data, onDelete, onEdit }) => {
   });
 
   return <div className="markers">{markersChilds}</div>;
+};
+
+Markers.propTypes = {
+  data: PropTypes.array,
+  onDelete: PropTypes.func,
+  onEdit: PropTypes.func
 };
 
 export default Markers;
